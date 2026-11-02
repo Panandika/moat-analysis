@@ -1,6 +1,6 @@
 # moat-analysis
 
-A Claude Code skill that scores how well a software product can defend itself once AI makes code cheap to copy.
+An agent skill that scores how well a software product can defend itself once AI makes code cheap to copy.
 
 You give it a product name. It researches the company on the web, scores eight moats from 0 to 10 with a cited source behind each score, rates exposure to ten AI attacks, and recommends moves for the weakest spots.
 
@@ -8,13 +8,17 @@ The framework comes from [Rob Walling and Anar's MicroConf Europe 2026 talk](htt
 
 ## Install
 
+`SKILL.md` follows the [Agent Skills](https://agentskills.io) format: YAML frontmatter with a name and description, then plain Markdown instructions. Clone the repo into the folder your agent reads skills from:
+
 ```bash
-git clone https://github.com/Panandika/moat-analysis ~/.claude/skills/moat-analysis
+git clone https://github.com/Panandika/moat-analysis <your-agent-skills-dir>/moat-analysis
 ```
 
-Restart Claude Code and the skill shows up as `moat-analysis`. It needs a web search tool.
+Your agent needs a web search tool. If it doesn't load skills, paste `SKILL.md` into its system prompt or project instructions.
 
 ## Use
+
+Agents that support slash commands take:
 
 ```
 /moat-analysis Churnkey
@@ -22,12 +26,12 @@ Restart Claude Code and the skill shows up as `moat-analysis`. It needs a web se
 /moat-analysis Otter.ai vs Granola vs Fathom
 ```
 
-Plain requests work too: "how defensible is Linear", "will AI kill Calendly", "moat scorecard for my product".
+Any agent also picks it up from plain requests: "how defensible is Linear", "will AI kill Calendly", "moat scorecard for my product".
 
 | Option | What it does |
 |---|---|
-| `quick` (default) | 6 to 10 searches, one product, runs in your session |
-| `deep` | One research subagent per product. Use it to compare competitors or vet an acquisition |
+| `quick` (default) | 6 to 10 searches, one product, runs in the main conversation |
+| `deep` | One research subagent per product, if your agent can spawn them. Use it to compare competitors or vet an acquisition |
 | `founder` lens | Weights the report toward moves you can make |
 | `buyer` lens | Weights it toward whether the company survives 3 to 5 years |
 
